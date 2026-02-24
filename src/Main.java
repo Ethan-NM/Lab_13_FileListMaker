@@ -71,7 +71,7 @@ public class Main {
     static void deleteItem(){
         needsSaved=true;
 
-        int index = SafeInput.getRangedInt(scanner, "What index of the ArrayList would you like to remove?", 0, currentList.size());
+        int index = SafeInput.getRangedInt(scanner, "What index of the ArrayList would you like to remove?", 0, currentList.size()-1);
         currentList.remove(index);
         System.out.println("Your item at " + String.valueOf(index) + " was removed successfully!");
         scanner.nextLine();
@@ -81,7 +81,7 @@ public class Main {
         needsSaved=true;
 
         String itemToAdd = SafeInput.getNonZeroLenString(scanner, "What item would you like to add to the ArrayList?");
-        int index = SafeInput.getRangedInt(scanner, "What index of the ArrayList would you like to put " + itemToAdd + " at?", 0, currentList.size());
+        int index = SafeInput.getRangedInt(scanner, "What index of the ArrayList would you like to put " + itemToAdd + " at?", 0, currentList.size()-1);
         currentList.add(index,itemToAdd);
         System.out.println(itemToAdd + " added successfully!");
         scanner.nextLine();
@@ -92,6 +92,7 @@ public class Main {
     }
 
     static void clearList(){
+        needsSaved=true;
         currentList.clear();
     }
 
@@ -154,13 +155,12 @@ public class Main {
     static void move(){
         needsSaved = true;
 
-        int indexFrom = SafeInput.getRangedInt(scanner,"What index would you like to move?",1,currentList.size());
-        int indexTo = SafeInput.getRangedInt(scanner,"What index would you like to move to?",1,currentList.size());
+        int indexFrom = SafeInput.getRangedInt(scanner,"What index would you like to move?",0,currentList.size()-1);
+        int indexTo = SafeInput.getRangedInt(scanner,"What index would you like to move to?",0,currentList.size()-1);
 
-        String element = currentList.get(indexFrom);
-        currentList.remove(element);
+        String element = currentList.remove(indexFrom);
+        currentList.add(indexTo, element);
 
-        currentList.set(indexTo,element);
         scanner.nextLine();
     }
 
